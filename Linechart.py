@@ -11,15 +11,14 @@
 # permission of the Georgia Tech Research Institute.
 #****************************************************************/
 
-from ..visualization import VisBase
-import utils
+from visualization.utils import *
 import vincent, json
 
 
 def get_classname():
     return 'Linechart'
     
-class Linechart(VisBase):
+class Linechart(Visualization):
     def __init__(self):
         super(Linechart, self).__init__()
         self.inputs = ['matrix.csv', 'features.txt', 'selected_features']
@@ -29,8 +28,8 @@ class Linechart(VisBase):
         self.description = ''
 
     def initialize(self, inputs):
-        self.features = utils.load_features(inputs['features.txt']['rootdir'] + 'features.txt')
-        self.matrix = utils.load_dense_matrix(inputs['matrix.csv']['rootdir'] + 'matrix.csv', names=self.features)
+        self.features = load_features(inputs['features.txt']['rootdir'] + 'features.txt')
+        self.matrix = load_dense_matrix(inputs['matrix.csv']['rootdir'] + 'matrix.csv', names=self.features)
         self.selected_features = inputs['selected_features']
 
     def create(self):
@@ -48,7 +47,7 @@ class Linechart(VisBase):
 
         json_content = json.dumps(data)
 
-        vis_id = 'vis_' + utils.get_new_id()
+        vis_id = 'vis_' + get_new_id()
         script = '<script> spec =' + json_content + ';vg.parse.spec(spec, function(chart) { chart({el:"#' + vis_id + '"}).update(); });</script>'
         
         return {'data':script,'type':'default', 'id': vis_id, 'title': 'Linechart'}
