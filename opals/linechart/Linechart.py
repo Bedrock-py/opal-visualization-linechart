@@ -11,7 +11,7 @@
 # permission of the Georgia Tech Research Institute.
 #****************************************************************/
 
-from visualization.utils import *
+from bedrock.visualization.utils import *
 import vincent, json
 
 
